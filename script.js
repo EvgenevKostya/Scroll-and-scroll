@@ -15,44 +15,45 @@ let initialLoad = true;
 
 //check if all images were loaded
 function imageLoaded() {
-    imagesLoaded++;
-    if (imagesLoaded === totalImages) {
-        ready = true;
-        loader.hidden = true;
+  imagesLoaded++;
+  if (imagesLoaded === totalImages) {
+      ready = true;
+      loader.hidden = true;
+      initialLoad = false;
     }
 };
 
 // Helper Function to Set Attributes on DOM Elements
 function setAttributes(element, attributes) {
-    for(const key in attributes) {
-        element.setAttribute(key, attributes[key]);
-    }
-} 
+  for(const key in attributes) {
+      element.setAttribute(key, attributes[key]);
+  }
+}
 
 // Create Elements For Links & Photos, Add to DOM
 function displayPhotos() {
-    imagesLoaded = 0;
-    totalImages = photosArray.length;
-    // Run function for each object in photosArray
-    photosArray.forEach((photo) => {
-        // Create <a> to link to Unsplash
-        const item = document.createElement('a');
-        setAttributes(item, {
-            href: photo.links.html,
-            target: '_blank',
+  imagesLoaded = 0;
+  totalImages = photosArray.length;
+  // Run function for each object in photosArray
+  photosArray.forEach((photo) => {
+      // Create <a> to link to Unsplash
+      const item = document.createElement('a');
+      setAttributes(item, {
+          href: photo.links.html,
+          target: '_blank',
         });
-        // Create <img> for photo
-        const img = document.createElement('img');
-        setAttributes(img, {
-            src: photo.urls.regular,
-            alt: photo.alt_description,
-            title: photo.alt_description, 
+      // Create <img> for photo
+      const img = document.createElement('img');
+      setAttributes(img, {
+          src: photo.urls.regular,
+          alt: photo.alt_description,
+          title: photo.alt_description,
         });
-        // Event Listener, check when each is finished loading
-        img.addEventListener('load', imageLoaded);
-        // Put <img> inside <a>, then put both inside imageContainer Element
-        item.appendChild(img);
-        imageContainer.appendChild(item);
+      // Event Listener, check when each is finished loading
+      img.addEventListener('load', imageLoaded);
+      // Put <img> inside <a>, then put both inside imageContainer Element
+      item.appendChild(img);
+      imageContainer.appendChild(item);
     });
 }
 
